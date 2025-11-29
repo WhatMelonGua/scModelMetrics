@@ -1,0 +1,56 @@
+
+
+Outdir: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/outputs/demo
+
+
+Dataset:
+  -
+    name: immune
+    train:
+      h5ad: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/inputs/blood_immune/train.h5ad
+      annoKey: cell_type # 金标准 细胞注释 名称
+      batchKey: assay # 实验批次的 key 名称, dataset_id
+      species: hg # 物种, hg / mm
+    test:
+      h5ad: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/inputs/blood_immune/test.h5ad
+      annoKey: cell_type # 金标准 细胞注释 名称
+      batchKey: assay # 实验批次的 key 名称, dataset_id
+      species: hg # 物种, hg / mm
+  - 
+    name: kidney
+    train:
+      h5ad: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/inputs/kpmp/train.h5ad
+      annoKey: celltype_l1
+      batchKey: library_id
+      species: hg
+    test:
+      h5ad: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/inputs/kpmp/test.h5ad
+      annoKey: celltype_l1
+      batchKey: library_id
+      species: hg
+
+
+
+# 默认不用更改, 模型评价功能声明/限制表
+ModelFuncCfg: ./configs/sets/model.func.tsv
+
+# 选用模型, 会根据Metric设置 尽可能跑完模型支持的任务
+# 模型支持任务 有 config配置表
+# 不区分大小写
+Model:
+  - 
+    name: scgpt
+    model_dir: 
+    zeroshot: False
+  - 
+    name: geneformer
+    model_dir: /data/run01/sczd231/disk/Projects/XD/scModelMetrics/scripts/models/Geneformer/models/Geneformer-V1-10M
+    zeroshot: False
+
+
+# 对输出进行 重构、注释、整合 3大类任务评估
+# 不区分大小写
+Metric:
+  - recon
+  - annotation
+  - integration

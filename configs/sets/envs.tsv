@@ -1,0 +1,4 @@
+Env	Path
+geneformer	/data/run01/sczd231/software/miniforge3/envs/Geneformer
+scgpt	/data/run01/sczd231/software/miniforge3/envs/scGPT
+genecompass	/data/run01/sczd231/software/miniforge3/envs/GeneCompass
