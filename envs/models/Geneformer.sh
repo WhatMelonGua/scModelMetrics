@@ -9,13 +9,20 @@ mkdir -p $home/gits
 cd $home/gits
 
 git lfs install
-git clone https://huggingface.co/ctheodoris/Geneformer
+git clone https://hf-mirror.com/ctheodoris/Geneformer # 全模型
+# GIT_LFS_SKIP_SMUDGE=1 git clone https://hf-mirror.com/ctheodoris/Geneformer
 cd Geneformer
 
 conda create -n Geneformer python=3.10 -y
 conda activate Geneformer
-
 pip install .
+
+
+# 将pkl移动至dir
+sitedir=$(python -c "import site; print(site.getsitepackages()[0])")/geneformer
+cd geneformer
+cp *.pkl $sitedir
+cp gene_dictionaries_30m $sitedir -r
 
 
 # 下载模型

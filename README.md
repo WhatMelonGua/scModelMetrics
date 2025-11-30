@@ -6,6 +6,14 @@
 
 ![流程图](./imgs/drawio.png)
 
+> 报告生成测试
+
+报告生成目前使用原始脚本绘制，仍未完成封装，对GeneFormer和scGPT大模型生成示例如下：
+
+![细胞注释](./imgs/reports/anno.report.png)
+
+![批次效应](./imgs/reports/integ.report.png)
+
 ### 开发规划
 
 > __×__: 未开始开发
@@ -49,7 +57,10 @@
 
 - [x] 测试流程 环境搭建 脚本封装
 - [x] GeneCompass 环境搭建 脚本封装
-- [ ] GeneCompass 注释、整合代码封装
+- [ ] 预处理进一步对齐 train / test 集数据的 annoKey 和 integKey, 进行规范化优化
+- [ ] GeneCompass 注释、扰动代码封装
+- [ ] Geneformer 注释 + 整合 联合调度的(其官方执行代码存在处理重合) 流程化封装，优化脚本执行效率
+- [ ] 增添h5ad -> huggingface Transformer输入dataset类型的转接脚本，便于Geneformer、GeneCompass等HF系模型使用
 - [ ] HVG conservation, Graph cLISI 指标封装测试
 - [ ] scGPT 基因扰动 脚本封装
 - [ ] State 等大模型 原始脚本开发

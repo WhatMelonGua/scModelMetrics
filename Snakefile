@@ -26,17 +26,34 @@ for k in ('job',):
     assert k in config.keys(), \
     f"Error: No config '{k}' input, please use:\n'snakemake --config job=configs/demo.yaml -j 2' to start a job!"
 
-configset(config, 'tool', 'configs/sets/envs.tsv')  # 工具/环境 配置
+configset(config, 'env', 'configs/sets/envs.tsv')  # 工具/环境 配置
 # endregion
 
-T = configParser.Tool(config['tool'])
-P = configParser.Project(config['job'])
+E = configParser.Tool(config['env'])    # 环境配置加载
+T = configParser.Task(config['job'])    # 任务计划加载
 
-# region |- Include .smk -|
+# region |- Include .smk 加载子模块 -|
 include: "modules/0.preMatrix.smk"
 include: "modules/1.callModel.smk"
 include: "modules/2.doMetrics.smk"
 include: "modules/3.report.smk"
 # endregion
+
+# 根据子模块规则 定制 -> 全流程执行至生成报告路径 [metrics开发不全, 暂时计划优化]
+# 按 数据集 打组输出报告
+rule summary_all:
+    input:
+        expand("{outdir}/{dataset}/report/summary.tsv", outdir=T.outdir, dataset=T.dataset.keys()),
+    message:
+        "[Main] Whole Report Pipeline start..."
+
+
+# 根据子模块规则 定制 -> 全流程执行至生成报告路径 [metrics开发不全, 暂时计划优化]
+# 按 数据集 打组输出报告
+rule all:
+    input:
+        expand("{outdir}/{dataset}/report/summary.tsv", outdir=T.outdir, dataset=T.dataset.keys()),
+    message:
+        "[Main] Whole Report Pipeline start..."
 
 
